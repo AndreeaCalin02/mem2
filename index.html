@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>🧠 Memorizer Game</title>
+
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="style.css">
+ 
+    </head>
+    <body>
+
+        <div class="game d-flex flex-column">
+            <div class="flex flex-column align-items-center">
+                <h1 class="text-center">Memorizer Game</h1>
+                <!-- Game size -->
+                <div class="game-size flex flex-column align-items-center">
+                    <h3 class="text-center">Here you can choose the dimenssions of the game:</h3>
+                    <button class="col-3 my-3 btn btn-outline-dark button2x4" onclick="setGameSize()">2x4</button>
+                    <button class="col-3 my-3 btn btn-outline-dark button3x4" onclick="setGameSize()">3x4</button>
+                    <button class="col-3 my-3 btn btn-outline-dark button4x4" onclick="setGameSize()">4x4</button>
+                </div>
+                
+                <!-- SINGLEPLAYER button -->
+                <button class="col-md-6 my-3 btn btn-outline-dark button-single-player hidden" onclick="buttonSingleplayer()">Single-player</button>
+                <!-- Single player INSTRUCTIONS -->
+                <div class="instructions-single text-center flex flex-column align-items-center hidden">
+                    <h3>How to play</h3>
+                    <p>Single Player Mode: Find all matching cards.</p>
+                    <p class="highlight">Be as fast as you can! You are playing against clock!</p>
+                    <button class="col-md-6 btn btn-outline-dark button-single-start mt-3" onclick="buttonStartSingleplayer()">Start</button>
+                    <button class="col-md-6 btn btn-outline-dark button-menu my-3" onclick="mainMenu()">Main Menu</button>
+                </div>
+
+                <!-- MULTIPLAYER button -->
+                <button class="col-md-6 my-3 btn btn-outline-dark button-multi-player hidden" onclick="buttonMultiplayer()">Multi-player</button>
+                <!-- Multi player INSTRUCTIONS -->
+                <div class="instructions-multi text-center flex flex-column align-items-center hidden">
+                    <h2>How to play</h2>
+                    <p>Multi Player Mode: Player 1 starts the game. Each player chooses two cards untill all matches are found.</p>
+                    <p class="highlight mb-2">Let's see who has the best memory!</p>
+                </div>
+                <!-- Multi player INPUTS -->
+                <div class="controls players-inputs flex-column align-items-center hidden">
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                        <label for="name-player1" class="col-form-label my-1">Player 1:</label>
+                        </div>
+                        <div class="col-md-auto col-sm-6">
+                        <input type="text" id="name-player1" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                        <label for="name-player2" class="col-form-label my-1">Player 2:</label>
+                        </div>
+                        <div class="col-md-auto col-sm-6">
+                        <input type="text" id="name-player2" class="form-control" >
+                        </div>
+                    </div>
+                    <button class="col-md-6 btn btn-outline-dark button-multi-start mt-2" onclick="buttonStartMultiplayer()">Start</button>
+                    <button class="col-md-6 btn btn-outline-dark my-3 button-menu" onclick="mainMenu()" >Main Menu</button>
+                </div>
+            </div>
+            
+
+            <!-- Game status SINGLEPLAYER -->
+            <div class="controls-single hidden">
+                <div class="stats flex justify-content-between my-1">
+                    <div class="moves">Moves: 0</div>
+                    <div class="timer">Time: 0 sec</div>
+                </div>
+            </div>
+
+            <!-- Game status MULTIPLAYER -->
+            
+            <div class="controls-multi my-1 hidden stats flex ">
+                <div class="stats-player1 text-center me-auto">
+                    <div class="player1"> Player 1</div>
+                    <div class="moves-player1">Moves: 0</div>
+                    <div class="matches-player1">Matches: 0</div>
+                    <div class="wins-player1">Wins: 0</div>
+                </div>
+                <div class="stats-player2 text-center ms-auto">
+                    <div class="player2">Player 2</div>
+                    <div class="moves-player2">Moves: 0</div>
+                    <div class="matches-player2">Matches: 0</div>
+                    <div class="wins-player2">Wins: 0</div>
+                </div>    
+            </div>
+        
+
+            <!-- GAME BOARD -->
+            <div class="board-container flex flex-column align-items-center hidden">
+                <div class="board"></div>
+                <div class="win">
+                </div>
+            
+                <button class="col-md-6 btn btn-outline-dark button-menu my-3" onclick="mainMenu()">Main Menu</button>
+            </div>
+        </div>
+
+        <script src="menu.js"></script>
+    </body>
+</html>
