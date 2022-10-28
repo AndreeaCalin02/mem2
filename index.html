@@ -21,12 +21,22 @@
                 <h1 class="text-center">Memorizer Game</h1>
                 <!-- Game size -->
                 <div class="game-size flex flex-column align-items-center">
-                    <h3 class="text-center">Here you can choose the dimenssions of the game:</h3>
-                    <button class="col-3 my-3 btn btn-outline-dark button2x4" onclick="setGameSize()">2x4</button>
-                    <button class="col-3 my-3 btn btn-outline-dark button3x4" onclick="setGameSize()">3x4</button>
-                    <button class="col-3 my-3 btn btn-outline-dark button4x4" onclick="setGameSize()">4x4</button>
+                    <h3 class="text-center highlight">Here you can choose the dimensions of the game:</h3>
+                    <button class="col-md-6 my-3 btn btn-outline-dark button2x4" onclick="setGameSize()">2x4</button>
+                    <button class="col-md-6 my-3 btn btn-outline-dark button3x4" onclick="setGameSize()">3x4</button>
+                    <button class="col-md-6 my-3 btn btn-outline-dark button4x4" onclick="setGameSize()">4x4</button>
                 </div>
-                
+
+                <!-- Game theme -->
+                <div class="game-theme flex flex-column align-items-center hidden">
+                    <h3 class="text-center highlight">Here you can choose the theme of the game:</h3>
+                    <button class="col-md-6 my-2 btn btn-outline-dark buttonFruits" onclick="setGameTheme()">Fruits and Veggies🍉</button>
+                    <button class="col-md-6 my-2 btn btn-outline-dark buttonAnimals" onclick="setGameTheme()">Furry firends🐶</button>
+                    <button class="col-md-6 my-2 btn btn-outline-dark buttonSweets" onclick="setGameTheme()">Sweets🧁</button>
+                    <button class="col-md-6 my-2 btn btn-outline-dark buttonHalloween" onclick="setGameTheme()">Halloween🎃</button>
+                    <button class="col-md-6 my-2 btn btn-outline-dark buttonChristmas" onclick="setGameTheme()">Christmas🎄</button>
+                </div>
+                <h3 class="text-center game-mode highlight hidden">Here you can choose game mode:</h3>
                 <!-- SINGLEPLAYER button -->
                 <button class="col-md-6 my-3 btn btn-outline-dark button-single-player hidden" onclick="buttonSingleplayer()">Single-player</button>
                 <!-- Single player INSTRUCTIONS -->
@@ -64,7 +74,7 @@
                         <input type="text" id="name-player2" class="form-control" >
                         </div>
                     </div>
-                    <button class="col-md-6 btn btn-outline-dark button-multi-start mt-2" onclick="buttonStartMultiplayer()">Start</button>
+                    <button class="col-md-6 btn btn-outline-dark button-multi-start mt-2" onclick="buttonStartMultiplayer()">Start</button> 
                     <button class="col-md-6 btn btn-outline-dark my-3 button-menu" onclick="mainMenu()" >Main Menu</button>
                 </div>
             </div>

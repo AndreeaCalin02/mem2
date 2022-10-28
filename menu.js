@@ -43,6 +43,14 @@ const game = {
     lenght: 4,
 }
 
+// game themes
+let fruits = ['🥔', '🍒', '🥑', '🌽', '🥕', '🍇', '🍉', '🍌', '🥭', '🍍'];
+let animals = ['🦍', '🐶', '🐮', '🐎', '🐷', '🦓', '🐰', '🐫', '🐘', '🦒'];
+let sweets = ['🍦', '🍩', '🍭', '🍰', '🧁', '🥧', '🍬', '🍪', '🍫', '🍮'];
+let halloween = ['🎃', '🕷️', '🕸️', '🏚️', '🧛', '👻', '🤡', '🕯️', '⚰️', '🌕'];
+let christmas = ['🎅', '🧑‍🎄', '🎄', '🎁', '☃️', '❄️', '🤡', '🏂', '🛷', '🏔️'];
+let emojis;
+
         // FUNCTIONS TO GENERATE GAME BOARD
 // function that picks random items from an array
 function pickRandom  (array, items) {
@@ -71,10 +79,9 @@ function shuffle ([...array]) {
 
 // function that generates the cards 
 function generateGame () {
-    const emojis = ['🥔', '🍒', '🥑', '🌽', '🥕', '🍇', '🍉', '🍌', '🥭', '🍍'];
+    
     let picks = pickRandom(emojis, (game.height * game.lenght) / 2);
     let items = shuffle([...picks, ...picks]);
-    console.log(items);
     let cards = `
             ${items.map(item => `
                 <div class="card">
@@ -84,8 +91,10 @@ function generateGame () {
             `).join('')}
     `
     selectors.board.style.gridTemplateColumns = `repeat(${game.lenght}, auto)`
-    selectors.board.innerHTML = cards
+    selectors.board.innerHTML = cards;
 }
+
+
 
             // FUNCTIONS FOR GAME FUNCTIONALITY
 // function that flips the cards, checks for matches and display win
@@ -101,9 +110,12 @@ function flipCardSingleplayer (card) {
             state.totalFlips++
             const flippedCards = document.querySelectorAll('.flipped:not(.matched)')
             if (flippedCards[0].innerText === flippedCards[1].innerText) {
-                flippedCards[0].classList.add('matched')
-                flippedCards[1].classList.add('matched')
+                flippedCards[0].classList.add('matched');
+                flippedCards[1].classList.add('matched');
+                flippedCards[0].classList.add('cursor');
+                flippedCards[1].classList.add('cursor');
             }
+        setTimeout(flipBackCards, 800)
     }
 
     // If there are no more cards that we can flip, we won the game
@@ -118,11 +130,12 @@ function flipCardSingleplayer (card) {
                     with <span class="highlight">${state.totalFlips}</span> moves<br />
                     under <span class="highlight">${state.totalTime}</span> seconds
                     <br />
-                    <button class="col-6 btn btn-outline-dark my-3 button-restart">Restart</button>
+                    <button class="btn btn-outline-dark my-3 button-restart">Restart</button>
+                    <button class="btn btn-outline-dark button-menu my-3" onclick="mainMenu()">Main Menu</button>
                 </span>
             `
             clearInterval(state.loop)
-        }, 2000)
+        }, 1500)
     }
 }
 
@@ -145,6 +158,8 @@ function flipCardMultiplayer (card) {
             if (flippedCards[0].innerText === flippedCards[1].innerText) {
                 flippedCards[0].classList.add('matched');
                 flippedCards[1].classList.add('matched');
+                flippedCards[0].classList.add('cursor');
+                flippedCards[1].classList.add('cursor');
                 state.matchesFoundPlayer1++;
             }
         } else {
@@ -155,9 +170,12 @@ function flipCardMultiplayer (card) {
             if (flippedCards[0].innerText === flippedCards[1].innerText) {
                 flippedCards[0].classList.add('matched');
                 flippedCards[1].classList.add('matched');
+                flippedCards[0].classList.add('cursor');
+                flippedCards[1].classList.add('cursor');
                 state.matchesFoundPlayer2++;
             }
         }
+        setTimeout(flipBackCards, 800)
     }
 
     // If there are no more cards that we can flip, we won the game
@@ -171,7 +189,8 @@ function flipCardMultiplayer (card) {
                 <span class="win-text">
                     ${state.namePlayer1} won!<br />
                     with <span class="highlight">${state.matchesFoundPlayer1}</span> matches found <br />
-                    <button class="col-6 btn btn-outline-dark my-3 button-restart">Restart</button>
+                    <button class="btn btn-outline-dark my-3 button-restart">Restart</button>
+                    <button class="btn btn-outline-dark button-menu my-3" onclick="mainMenu()">Main Menu</button>
                 </span>
             `
             }
@@ -182,7 +201,8 @@ function flipCardMultiplayer (card) {
                 <span class="win-text">
                 ${state.namePlayer2} won!<br />
                     with <span class="highlight">${state.matchesFoundPlayer2}</span> matches found <br />
-                    <button class="col-6 btn btn-outline-dark my-3 button-restart">Restart</button>
+                    <button class="btn btn-outline-dark my-3 button-restart">Restart</button>
+                    <button class="btn btn-outline-dark button-menu my-3" onclick="mainMenu()">Main Menu</button>
                 </span>
             `
             }
@@ -191,11 +211,12 @@ function flipCardMultiplayer (card) {
                 <span class="win-text">
                     Draw!<br />
                     with <span class="highlight">${state.matchesFoundPlayer2}</span> matches found by each player <br />
-                    <button class="col-6 btn btn-outline-dark my-3 button-restart">Restart</button>
+                    <button class="btn btn-outline-dark my-3 button-restart">Restart</button>
+                    <button class="btn btn-outline-dark button-menu my-3" onclick="mainMenu()">Main Menu</button>
                 </span> 
             `
             }
-        }, 2000)
+        }, 1500)
     }
 }
 
@@ -255,10 +276,6 @@ function attachEventListenersSingleplayer () {
         if (eventTarget.className.includes('card') && !eventParent.className.includes('flipped')) {
             flipCardSingleplayer(eventParent)
         }
-        if (eventTarget.className.includes('card') && !eventParent.className.includes('flipped') && state.flippedCards > 2) {
-            flipBackCards();
-            flipCardSingleplayer(eventParent);
-        }
     })
 }
 
@@ -275,10 +292,6 @@ function attachEventListenersMultiplayer () {
         }
         if (eventTarget.className.includes('card') && !eventParent.className.includes('flipped')) {
             flipCardMultiplayer(eventParent)
-        }
-        if (eventTarget.className.includes('card') && !eventParent.className.includes('flipped') && state.flippedCards > 2) {
-            flipBackCards();
-            flipCardSingleplayer(eventParent);
         }
     })
 }
@@ -320,15 +333,40 @@ function setGameSize() {
     if (event.target == document.querySelector(".button2x4")){
         game.height = 2;
     } 
+    document.querySelector(".button-menu").classList.remove("hidden");
     document.querySelector(".game-size").classList.add("hidden");
-    document.querySelector(".button-single-player").classList.remove("hidden");
-    document.querySelector(".button-multi-player").classList.remove("hidden");
-    console.log(game.height, game.lenght);
+    document.querySelector(".game-theme").classList.remove("hidden");
     return game.height
+}
+
+// function that gets called on size buttons to set game theme 
+function setGameTheme() {
+    if (event.target == document.querySelector(".buttonFruits")) {
+        emojis = fruits;
+    } 
+    if (event.target == document.querySelector(".buttonAnimals")){
+        emojis = animals;
+    }
+    if (event.target == document.querySelector(".buttonSweets")){
+        emojis = sweets;
+    }
+    if (event.target == document.querySelector(".buttonHalloween")){
+        emojis = halloween;
+    }
+    if (event.target == document.querySelector(".buttonChristmas")){
+        emojis = christmas;
+    }
+    document.querySelector(".button-menu").classList.remove("hidden");
+    document.querySelector(".game-theme").classList.add("hidden");
+    document.querySelector(".button-single-player").classList.remove("hidden");
+    document.querySelector(".game-mode").classList.remove("hidden");
+    document.querySelector(".button-multi-player").classList.remove("hidden");
+    return emojis
 }
 
 // function that gets called when single-player mode is selected
 function buttonSingleplayer() {
+    document.querySelector(".game-mode").classList.add("hidden");
     document.querySelector(".button-multi-player").classList.add("hidden");
     document.querySelector(".button-single-player").classList.add("hidden");
     document.querySelector(".instructions-single").classList.remove("hidden");   
@@ -345,6 +383,7 @@ function buttonStartSingleplayer() {
 
 // function that gets called when multi-player mode is selected
 function buttonMultiplayer() {
+    document.querySelector(".game-mode").classList.add("hidden");
     document.querySelector(".button-multi-player").classList.add("hidden");
     document.querySelector(".button-single-player").classList.add("hidden");
     document.querySelector(".instructions-multi").classList.remove("hidden");
@@ -355,14 +394,13 @@ function buttonMultiplayer() {
 function buttonStartMultiplayer() {
     let inputPlayer1 = document.querySelector("#name-player1")
     let inputPlayer2 = document.querySelector("#name-player2")
-   
-    if (inputPlayer1.value.lenght > 0) {
+    if (inputPlayer1.value) {
         state.namePlayer1 = inputPlayer1.value;
     } else {
         state.namePlayer1 = "Player 1"
     }
 
-    if (inputPlayer2.value.lenght > 0) {
+    if (inputPlayer2.value) {
         state.namePlayer2 = inputPlayer2.value;
     } else {
         state.namePlayer2 = "Player 2"
@@ -370,7 +408,6 @@ function buttonStartMultiplayer() {
     document.querySelector(".stats-player1").classList.add("highlight-player");
     selectors.namePlayer1.innerHTML = state.namePlayer1;
     selectors.namePlayer2.innerHTML = state.namePlayer2;
-    console.log(state.namePlayer1);
     document.querySelector(".instructions-multi").classList.add("hidden");
     document.querySelector(".players-inputs").classList.add("hidden");
     document.querySelector(".board-container").classList.remove("hidden");

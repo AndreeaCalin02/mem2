@@ -19,6 +19,7 @@ p {
 }
 
 /* Styles for classes */
+/* main div */
 .game {
     position: absolute;
     top: 50%;
@@ -26,12 +27,7 @@ p {
     transform: translate(-50%, -50%);
 }
 
-.controls {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
+/* cards */
 .card {
     position: relative;
     width: 80px;
@@ -54,7 +50,7 @@ p {
 
 .card-back {
     transform: rotateY(180deg) rotateZ(50deg);
-    font-size: 32px;
+    font-size: 38px;
     user-select: none;
     text-align: center;
     line-height: 80px;
@@ -70,9 +66,28 @@ p {
     transform: rotateY(0) rotateZ(0);
 }
 
+.matched {
+    opacity: 0.5;
+    transition: opacity 1s;
+}
+.cursor {
+    cursor: not-allowed;
+}
+
+/* game status */
+.controls {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
 .stats {
     color: #FFF;
     font-size: 20px;
+}
+
+.stats-player1, 
+.stats-player2 {
+    line-height: 1.2;
 }
 
 .board-container {
@@ -134,11 +149,7 @@ p {
     display: none;
 }
 
-.stats-player1, 
-.stats-player2 {
-    line-height: 1.2;
-}
-
+/* highlight player's name */
 .highlight-player {
     border-radius: 5px;
     padding: 2px 5px;
@@ -190,12 +201,15 @@ p {
         line-height: 50px;
     }
     .stats {
-        font-size: 14px;
+        font-size: 16px;
     }
     h1 {
-        font-size: 36px;
+        font-size: 30px;
     }
     .win-text {
-        font-size: 14px;
+        font-size: 16px;
+    }
+    .btn-outline-dark {
+        font-size: 16px;
     }
 }
